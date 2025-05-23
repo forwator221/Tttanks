@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Ttttanks
+namespace Tttanks
 {
     [CreateAssetMenu(fileName = "InputInstaller", menuName = "Tanks/Installers/InputInstaller")]
     public class InputInstaller : ScriptableObjectInstaller<InputInstaller>

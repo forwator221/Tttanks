@@ -1,52 +1,37 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Ttttanks
+namespace Tttanks
 {
     public class PlayerMovementPresenter : ITickable
     {
-        private readonly PlayerMovementView _view;
-        private readonly PlayerMovementModel _model;
-        private readonly IInputReader _input;
+        private readonly IMovementView _view;
+        private readonly IMovementModel _model;
 
         [Inject]
-        public PlayerMovementPresenter( PlayerMovementView view, PlayerMovementModel model, IInputReader input)
+        public PlayerMovementPresenter( IMovementView view, IMovementModel model)
         {
             _view = view;
             _model = model;
-            _input = input;
         }
 
         public void Tick()
         {
-            MovePlayer();
-            RotatePlayer();
+            var input = _view.GetInput();
+            MovePlayer(input);
+            RotatePlayer(input);
         }
 
-        private void MovePlayer()
+        private void MovePlayer(Vector2 input)
         {
-            var movement = CalculateMovement(_input.MoveDirection);
+            var movement = _model.CalculateMovement(input, _view.Forward);
             _view.Move(movement);
         }
 
-        private void RotatePlayer()
+        private void RotatePlayer(Vector2 input)
         {
-            var rotation = CalculateRotation(_input.MoveDirection);
+            var rotation = _model.CalculateRotation(input);
             _view.Rotate(rotation);
-        }
-
-        private Vector3 CalculateMovement(Vector2 input)
-        {
-            var verticalInput = input.y;
-            var movement = _view.Forward * (verticalInput * _model.MovementSpeed * Time.deltaTime);
-            return movement;
-        }
-
-        private Vector3 CalculateRotation(Vector2 input)
-        {
-            var horizontalInput = input.x;
-            var rotation = Vector3.up * (horizontalInput * _model.RotationSpeed * Time.deltaTime);
-            return rotation;
         }
     }
 }

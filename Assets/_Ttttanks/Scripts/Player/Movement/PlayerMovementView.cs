@@ -1,27 +1,40 @@
+using System;
 using UnityEngine;
+using Zenject;
 
-namespace Ttttanks
+namespace Tttanks
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerMovementView : MonoBehaviour
+    public class PlayerMovementView : MonoBehaviour, IMovementView, ITransformProvider
     {
         private CharacterController _characterController;
+        private IInputReader _input;
         
         public Vector3 Forward => transform.forward;
+        public Transform Transform => transform;
+
+        [Inject]
+        public void Construct(IInputReader input)
+        {
+            _input = input;
+        }
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
         }
 
-        public void Move(Vector3 deltaPosition)
+        public Vector2 GetInput() => _input.MoveDirection;
+
+        public void Move(Vector3 position)
         {
-            _characterController.Move(deltaPosition);
+            _characterController.Move(position);
         }
 
-        public void Rotate(Vector3 deltaRotation)
+        public void Rotate(Quaternion deltaRotation)
         {
-            transform.Rotate(deltaRotation, Space.Self);
+            transform.rotation *= deltaRotation;
         }
+
     }
 }

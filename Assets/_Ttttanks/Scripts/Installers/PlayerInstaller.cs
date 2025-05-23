@@ -1,12 +1,11 @@
 using UnityEngine;
 using Zenject;
 
-namespace Ttttanks
+namespace Tttanks
 {
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField] private PlayerMovementView _playerMovementView;
-        [SerializeField] private PlayerConfig _playerConfig;
 
         public override void InstallBindings()
         {
@@ -15,8 +14,15 @@ namespace Ttttanks
 
         private void InstallMovement()
         {
-            Container.Bind<PlayerMovementModel>().ToSelf().AsSingle().WithArguments(_playerConfig);
-            Container.Bind<PlayerMovementView>().FromInstance(_playerMovementView).AsSingle();
+            Container.Bind<IMovementModel>().To<PlayerMovementModel>().AsSingle()
+                .OnInstantiated<IMovementModel>((ctx, model) =>
+                {
+                    var config = ctx.Container.Resolve<PlayerConfig>();
+                    model.SetConfig(config);
+                });
+
+            Container.BindInterfacesTo<PlayerMovementView>().FromInstance(_playerMovementView).AsSingle();
+
             Container.BindInterfacesTo<PlayerMovementPresenter>().AsSingle();
         }
     }

@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-namespace Ttttanks
+namespace Tttanks
 {
     public class CameraSystem : MonoBehaviour
     {

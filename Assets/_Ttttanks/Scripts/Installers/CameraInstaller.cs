@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using Zenject;
 
-namespace Ttttanks
+namespace Tttanks
 {
     public class CameraInstaller : MonoInstaller
     {

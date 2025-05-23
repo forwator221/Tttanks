@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static PlayerInputAsset;
 
-namespace Ttttanks
+namespace Tttanks
 {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Tanks/InputReader")]
     public class InputReader : ScriptableObject, IPlayerActions, IInputReader
