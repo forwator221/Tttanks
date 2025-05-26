@@ -14,6 +14,8 @@ namespace Tttanks
             Container.BindInstance(cinemachineCamera).AsSingle();
             Container.BindInstance(cameraSystem).AsSingle();
             
+            Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();
+            
             Container.BindInterfacesTo<CameraInitializer>().AsSingle();
         }
     }

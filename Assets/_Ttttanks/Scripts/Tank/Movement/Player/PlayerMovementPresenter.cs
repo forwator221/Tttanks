@@ -6,10 +6,10 @@ namespace Tttanks
     public class PlayerMovementPresenter : ITickable
     {
         private readonly IMovementView _view;
-        private readonly IMovementModel _model;
+        private readonly ITankMovementModel _model;
 
         [Inject]
-        public PlayerMovementPresenter( IMovementView view, IMovementModel model)
+        public PlayerMovementPresenter( IMovementView view, ITankMovementModel model)
         {
             _view = view;
             _model = model;

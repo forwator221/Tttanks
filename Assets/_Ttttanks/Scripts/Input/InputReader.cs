@@ -17,7 +17,7 @@ namespace Tttanks
         private PlayerInputAsset _input;
         
         public Vector2 MoveDirection => _input.Player.Move.ReadValue<Vector2>();
-        public Vector2 LookDirection => _input.Player.Look.ReadValue<Vector2>();
+        public Vector2 LookDirection => Mouse.current?.position.ReadValue() ?? Vector2.zero;
         
         public void EnableInput() => _input?.Enable();
         public void DisableInput() => _input?.Disable();

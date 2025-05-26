@@ -2,11 +2,11 @@
 
 namespace Tttanks
 {
-    public class PlayerMovementModel : IMovementModel
+    public class PlayerTankMovementModel : ITankMovementModel
     {
-        public PlayerConfig Config { get; private set; }
+        public TankConfig Config { get; private set; }
 
-        public void SetConfig(PlayerConfig config)
+        public void SetConfig(TankConfig config)
         {
             Config = config;
         }
